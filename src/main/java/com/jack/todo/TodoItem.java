@@ -1,21 +1,21 @@
 package com.jack.todo;
+import java.net.URI;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class TodoItem {
-	// private final long id;
 	private String title;
-	private boolean complete;
+	private Boolean complete;
 	@JsonFormat(pattern="yyyy-MM-dd")
 	private LocalDate dueDate;
+	private URI url;
 	
 	public TodoItem() {
 		this.complete=false;
 	}
 	
 	public TodoItem(long id, String title, LocalDate dueDate) {
-		//this.id = id;
 		this.complete = false;
 		this.title = title;
 		this.dueDate = dueDate;
@@ -28,7 +28,7 @@ public class TodoItem {
 		this.title = title;
 	}
 
-	public boolean isComplete() {
+	public Boolean isComplete() {
 		return complete;
 	}
 
@@ -43,7 +43,22 @@ public class TodoItem {
 	public void setDueDate(LocalDate dueDate) {
 		this.dueDate = dueDate;
 	}
-	/*public long getId() {
-		return id;
-	}*/
+	public void setUrl(URI url) {
+		this.url = url;
+	}
+	public URI getUrl() {
+		return url;
+	}
+	public TodoItem patchWith(TodoItem todo) {
+		if(todo.getTitle() != null) {
+			this.title = todo.getTitle();
+		}
+		if(todo.isComplete() != null) {
+			this.complete = todo.isComplete();
+		}
+		if(todo.getDueDate() != null) {
+			this.dueDate = todo.getDueDate();
+		}
+		return this;
+	}
 }

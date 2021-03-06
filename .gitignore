@@ -25,6 +25,6 @@ hs_err_pid*
 
 # eclipse settings
 *eclipse*
-
+.project
 # vim files
 *~
