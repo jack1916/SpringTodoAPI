@@ -24,7 +24,7 @@ public class TodoRepositoryImpl implements TodoRepository{
 	
 	@Override
 	public boolean update(TodoItem todo) {
-		TODO_MAP.put(todo.getId(), todo); //TODO - change to replacing in the map
+		TODO_MAP.put(todo.getId(), todo);
 		return true;
 	}
 	
@@ -42,7 +42,7 @@ public class TodoRepositoryImpl implements TodoRepository{
 	public long countByCompleted(boolean completed) {
 		long count = 0;
 		for(TodoItem todo : TODO_MAP.values()) {
-			if(completed = todo.isComplete()) {
+			if(completed == todo.isComplete()) {
 				count++;
 			}
 		}

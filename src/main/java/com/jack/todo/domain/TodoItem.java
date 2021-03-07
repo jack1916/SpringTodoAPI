@@ -45,17 +45,4 @@ public class TodoItem {
 	public void setDueDate(LocalDate dueDate) {
 		this.dueDate = dueDate;
 	}
-	
-	public TodoItem patchWith(TodoItem todo) {
-		if(todo.getTitle() != null) {
-			this.title = todo.getTitle();
-		}
-		if(todo.isComplete() != null) {
-			this.complete = todo.isComplete();
-		}
-		if(todo.getDueDate() != null) {
-			this.dueDate = todo.getDueDate();
-		}
-		return this;
-	}
 }
