@@ -29,50 +29,56 @@ public class TodoServiceImplTests {
 	
 	@InjectMocks
 	private TodoServiceImpl todoService;
-
+	
+	/*
+	 * Should run findAll in mocked repository.
+	 */
 	@Test
-	// findAll in the repository should run when findAll is ran by TodoService
-	public void TodoServiceFindAll_WillRunTest(){
-		// When findAll is ran
+	public void findAll_WillRun(){
+		// When
 		todoService.findAll();
 		
-		// Expect findAll to be ran in the repository
+		// Expect
 		Mockito.verify(mockRepository).findAll();
 	}
-	
+	/*
+	 * Should return a TodoItem with an ID and run create method in mocked repository.
+	 */
 	@Test
-	// create should return a todo with an ID and run create method in mocked repository
-	public void TodoServiceCreate_ReturnsTodoTest() {
-		// When create is ran
+	public void create_ReturnsTodoItem() {
+		// When
 		final TodoItem result = todoService.create(MY_TODO);
 		
-		// Expect return of same object
+		// Expect
 		assertEquals(result.getTitle(),MY_TODO.getTitle());
-		// Expect returned object to have a UUID
 		assertNotNull(result.getId());
-		// Expect create to have ran in mocked repository
+		assertEquals(result.isComplete(),false);
 		Mockito.verify(mockRepository).create(any());
 	}
-	
+	/*
+	 * Should run the delete method in the mocked repository.
+	 */
 	@Test
-	// delete should run the delete method in the mocked repository
-	public void TodoServiceDelete_WillRunTest() {
-		// When delete is ran
+	public void delete_WillRun() {
+		// When
 		todoService.delete(MY_TODO.getId());
 		
-		// Expect delete method to be ran in repository
+		// Expect
 		Mockito.verify(mockRepository).delete(any());
 	}
+	/* 
+	 * Should return a TodoItem with complete set to true and update should be ran.
+	 */
 	@Test
-	// complete should return a TodoItem with complete set to true and update should be ran
-	public void TodoServiceComplete_ReturnsTodoTest() {
-		// when 
+	public void complete_ReturnsTodoItem() {
+		// Given 
 		when(mockRepository.findById(id)).thenReturn(MY_TODO);
+
+		// When 
 		final TodoItem result = todoService.complete(id);
 		
-		// Expect update method to be ran in repository
+		// Expect
 		Mockito.verify(mockRepository).update(any());
-		// Expect complete to be true
 		assertEquals(result.isComplete(), true);
 	}
 }
