@@ -14,6 +14,11 @@ public class TodoItem {
 		this.complete=false;
 	}
 	
+	public TodoItem(String title) {
+		this.complete=false;
+		this.title= title;
+	}
+	
 	public String getId() {
 		return id;
 	}
