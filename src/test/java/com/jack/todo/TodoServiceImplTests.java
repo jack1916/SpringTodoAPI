@@ -34,7 +34,7 @@ public class TodoServiceImplTests {
 	 * Should run findAll in mocked repository.
 	 */
 	@Test
-	public void findAll_WillRun(){
+	public void testFindAll_WillRun(){
 		// When
 		todoService.findAll();
 		
@@ -45,7 +45,7 @@ public class TodoServiceImplTests {
 	 * Should return a TodoItem with an ID and run create method in mocked repository.
 	 */
 	@Test
-	public void create_ReturnsTodoItem() {
+	public void testCreate_ReturnsTodoItem() {
 		// When
 		final TodoItem result = todoService.create(MY_TODO);
 		
@@ -59,7 +59,7 @@ public class TodoServiceImplTests {
 	 * Should run the delete method in the mocked repository.
 	 */
 	@Test
-	public void delete_WillRun() {
+	public void testDelete_WillRun() {
 		// When
 		todoService.delete(MY_TODO.getId());
 		
@@ -70,7 +70,7 @@ public class TodoServiceImplTests {
 	 * Should return a TodoItem with complete set to true and update should be ran.
 	 */
 	@Test
-	public void complete_ReturnsTodoItem() {
+	public void testComplete_ReturnsTodoItem() {
 		// Given 
 		when(mockRepository.findById(id)).thenReturn(MY_TODO);
 
