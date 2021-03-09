@@ -1,13 +1,20 @@
 package com.jack.todo.domain;
 import java.time.LocalDate;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+@Entity // tell Hibernate to make a table from this model
 public class TodoItem {
 	private String title;
 	private Boolean complete;
 	@JsonFormat(pattern="yyyy-MM-dd")
 	private LocalDate dueDate;
+	@Id // tell Hibernate id will be used as the primary key
 	private String id;
 	
 	public TodoItem() {

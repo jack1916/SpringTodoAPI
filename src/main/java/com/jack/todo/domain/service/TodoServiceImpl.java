@@ -1,7 +1,10 @@
 package com.jack.todo.domain.service;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.UUID;
+
+import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +18,8 @@ public class TodoServiceImpl implements TodoService{
 	TodoRepository todoRepository;
 	
 	public TodoItem findById(String id) {
-		return todoRepository.findById(id);
+		return todoRepository.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException(id));
 	}
 	@Override
 	public Collection<TodoItem> findAll() {
@@ -28,7 +32,7 @@ public class TodoServiceImpl implements TodoService{
 		todo.setId(id);
 		todo.setComplete(false);
 		
-		todoRepository.create(todo);
+		todoRepository.save(todo);
 		
 		return todo;
 	}
@@ -36,17 +40,15 @@ public class TodoServiceImpl implements TodoService{
 	@Override
 	public TodoItem complete(String id) {
 		TodoItem todo = findById(id);
-		
 		todo.setComplete(true);
-		todoRepository.update(todo);
-		
+		todoRepository.save(todo);
 		return todo;
+
 	}
 
 	@Override
 	public void delete(String id) {
-		TodoItem todo = findById(id);
-		todoRepository.delete(todo);
+		todoRepository.deleteById(id);
 		
 	}
 	
