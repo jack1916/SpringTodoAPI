@@ -8,6 +8,9 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+/*
+ *  The model TodoItem class - POJO of a todo, used as an Entity for Hibernate
+ */
 @Entity // tell Hibernate to make a table from this model
 public class TodoItem {
 	private String title;

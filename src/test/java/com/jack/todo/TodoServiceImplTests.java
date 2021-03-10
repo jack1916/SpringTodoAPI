@@ -3,9 +3,13 @@ package com.jack.todo;
 import static org.mockito.BDDMockito.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Optional;
 import java.util.UUID;
+
+import javax.persistence.EntityNotFoundException;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -67,6 +71,33 @@ public class TodoServiceImplTests {
 		// Expect
 		Mockito.verify(mockRepository).deleteById(any());
 	}
+	
+	/*
+	 *  Should return a TodoItem when passed an existing id.
+	 */
+	@Test 
+	public void testFindById_ReturnsTodoItem(){
+		// Given
+		when(mockRepository.findById(id)).thenReturn(Optional.of(MY_TODO));
+		// When
+		final TodoItem result = todoService.findById(id);
+		// Expect
+		assertNotNull(result);
+	}
+	/*
+	 * Should return an EntityNotFound exception with the ID when an empty optional is received from the repository.
+	 */
+	@Test
+	public void testFindById_ReturnsExceptionOnEmptyOptional() {
+		// Given
+		when(mockRepository.findById(id)).thenReturn(Optional.empty());
+		// When
+		Exception exception = assertThrows(EntityNotFoundException.class, () -> 
+			todoService.findById(id));
+		
+		// Expect
+		assertTrue(exception.getMessage().contains(id));
+	}
 	/* 
 	 * Should return a TodoItem with complete set to true and update should be ran.
 	 */
@@ -82,6 +113,7 @@ public class TodoServiceImplTests {
 		Mockito.verify(mockRepository).save(any());
 		assertEquals(result.isComplete(), true);
 	}
+
 }
 
 

@@ -1,6 +1,7 @@
 package com.jack.todo.domain.service;
 
 import java.util.Collection;
+
 import java.util.Optional;
 import java.util.UUID;
 
@@ -12,10 +13,15 @@ import org.springframework.stereotype.Service;
 import com.jack.todo.domain.TodoItem;
 import com.jack.todo.domain.repository.TodoRepository;
 
-@Service
+/*
+ * Implements the TodoService interface - abstracts interaction with the CRUD TodoRepository.
+ * Makes any changes required to the data before it reaches TodoRepository
+ */
+
+@Service //Marks this class as a Bean for component scanning so it can be picked up for the application context
 public class TodoServiceImpl implements TodoService{
 	@Autowired
-	TodoRepository todoRepository;
+	TodoRepository todoRepository; //Inject the TodoRepository dependency
 	
 	public TodoItem findById(String id) {
 		return todoRepository.findById(id)

@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jack.todo.domain.TodoItem;
 import com.jack.todo.domain.service.TodoService;
-
+/*
+ * The rest controller, responsible for handling incoming REST requests, prepares the TodoItem model and responses
+ */
 @RestController
 public class TodoController {
 	@Autowired
